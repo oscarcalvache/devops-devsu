@@ -5,6 +5,7 @@ pipeline {
             agent {
                 docker {
                     image 'maven:3.9.4'
+                    args '-uroot'
                 }
             }
             steps {
