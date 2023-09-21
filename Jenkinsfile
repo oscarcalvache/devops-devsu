@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Build') {
             environment {
-                dockerImageName = 'devsu-project'
+                dockerImageName = 'oscarcalvache/devsu-demo'
                 dockerImage = ''
             }
             steps {
