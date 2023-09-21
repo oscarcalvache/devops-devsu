@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+  labels:
+    app: devsu-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: devsu-demo
+  template:
+    metadata:
+      labels:
+        app: devsu-demo
+    spec:
+      containers:
+        - name: devsu-demo
+          image: oscarcalvache/devsu-demo:{{BUILD_NUMBER}}
+          ports:
+            - containerPort: 8000

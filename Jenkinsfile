@@ -37,8 +37,7 @@ pipeline {
                 script {
                     sh "make config_deploy"
                     withKubeConfig([credentialsId: 'kubernetes', contextName: 'docker-desktop']) {
-                        sh 'kubectl config get-contexts'
-                        sh 'kubectl get all -A'
+                        sh 'kubectl apply -f k8s/'
                     }
                 }
             }

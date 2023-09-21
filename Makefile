@@ -1,2 +1,2 @@
 config_deploy:
-	echo "Configuraciones finales de despliegue"
+	sed -i "s/{{BUILD_NUMBER}}/${env.BUILD_NUMBER}/g" k8s/deployment.yml
