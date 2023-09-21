@@ -26,7 +26,7 @@ pipeline {
         stage('Push') {
             steps {
                 script {
-                    docker.withRegistry('', docker-credentials) {
+                    docker.withRegistry('', 'docker-credentials') {
                         dockerImage.push(env.BUILD_NUMBER)
                     }
                 }
