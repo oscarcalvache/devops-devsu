@@ -35,7 +35,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh "make config_deploy"
+                    def buildNumber = env.BUILD_NUMBER
+                    sh "make config_deploy BUILD_NUMBER = ${buildNumber}"
                     withKubeConfig([credentialsId: 'kubernetes', contextName: 'docker-desktop']) {
                         sh 'kubectl apply -f k8s/'
                     }
