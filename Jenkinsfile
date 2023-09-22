@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Static code Analysis & Coverage') {
             steps {
-                withSonarQubeEnv('Sonar') {
+                withSonarQubeEnv('sonar') {
                     sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
                 }
                 timeout(time: 1, unit: 'HOURS') {
