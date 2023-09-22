@@ -13,12 +13,6 @@ pipeline {
             }
         }
         stage('Static code Analysis & Coverage') {
-            agent {
-                docker {
-                    image 'maven:3.9.4'
-                    args '-uroot'
-                }
-            }
             steps {
                 withSonarQubeEnv('sonar') {
                     sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
