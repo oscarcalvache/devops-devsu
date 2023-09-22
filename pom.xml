@@ -15,6 +15,7 @@
 	<description>Demo DevOps</description>
 	<properties>
 		<java.version>17</java.version>
+		<sonarqube.version>10.2</sonarqube.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -67,6 +68,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.7.0.1746</version>
 			</plugin>
 		</plugins>
 	</build>
