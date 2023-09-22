@@ -12,7 +12,25 @@ pipeline {
                 sh 'mvn clean test'
             }
         }
-        stage('Build') {
+        stage('Static code Analysis & Coverage') {
+            steps {
+                withSonarQubeEnv('Sonar') {
+                    sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
+                }
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+        stage('Vulnerability Scan'){
+            steps {
+                snykSecurity(
+                    snykInstallation: 'snyk',
+                    snykTokenId: 'snyk-token'
+                    )
+            }
+        }
+        stage('Build Image') {
             environment {
                 dockerImageName = 'oscarcalvache/devsu-demo'
                 dockerImage = ''
