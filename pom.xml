@@ -83,7 +83,7 @@
 						<exclude>**/config/**</exclude>
 						<exclude>**/entity/**</exclude>
 						<exclude>**/exception/**</exclude>
-						<exclude>**/RestResponseEntityExceptionHandler.java</exclude>
+						<exclude>**/**/RestResponseEntityExceptionHandler.java</exclude>
 					</excludes>
 				</configuration>
 				<executions>
