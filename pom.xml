@@ -78,6 +78,14 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.10</version>
+				<configuration>
+					<excludes>
+						<exclude>**/src/main/java/devsu/devops/demo/config/**</exclude>
+						<exclude>**/src/main/java/devsu/devops/demo/entity/**</exclude>
+						<exclude>**/src/main/java/devsu/devops/demo/exception/**</exclude>
+						<exclude>**/src/main/java/devsu/devops/demo/controller/RestResponseEntityExceptionHandler.java</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<goals>
