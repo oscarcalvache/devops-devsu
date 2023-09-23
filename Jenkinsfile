@@ -9,6 +9,9 @@ pipeline {
         stage('Test') {
             steps {
                 script {
+                    def devsuDatasorceUrl = credentials('devsu-datasource-url')
+                    def devsuDbUser = credentials('devsu-db-user')
+                    def devsuDbPassword = credentials('devsu-db-password')
                     sh 'make build_config DEVSU_DATASOURCE_URL=$devsuDatasorceUrl DEVSU_DB_USER=$devsuDbUser DEVSU_DB_PASSWORD=$devsuDbPassword'
                     sh 'mvn clean test'
                 }
