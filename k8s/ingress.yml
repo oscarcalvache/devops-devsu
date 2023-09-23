@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: devsu-ingress
+  namespace: devsu
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/issuer: letsencrypt-prod
+spec:
+  tls:
+    - hosts:
+        - devsu.example.com
+      secretName: devsu.example.com-tls
+  rules:
+    - host: devsu.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: devsu-demo
+                port:
+                  number: 8000
