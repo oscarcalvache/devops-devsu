@@ -25,7 +25,7 @@ pipeline {
         stage('Static code Analysis & Coverage') {
             steps {
                 withSonarQubeEnv('sonar') {
-                    sh 'mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
+                    sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
                 }
                 timeout(time: 1, unit: 'HOURS') {
                     waitForQualityGate abortPipeline: true
