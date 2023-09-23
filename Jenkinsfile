@@ -1,14 +1,14 @@
 pipeline {
     agent any
+    environment{
+        def devsuDatasorceUrl = credentials('devsu-datasource-url')
+        def devsuDbUser = credentials('devsu-db-user')
+        def devsuDbPassword = credentials('devsu-db-password')
+    }
     stages {
         stage('Test') {
-            agent {
-                docker {
-                    image 'maven:3.9.4'
-                    args '-uroot'
-                }
-            }
             steps {
+                sh 'make build_config DEVSU_DATASOURCE_URL=${devsuDatasorceUrl} DEVSU_DB_USER=${devsuDbUser} DEVSU_DB_PASSWORD=${devsuDbPassword}'
                 sh 'mvn clean test'
             }
         }
@@ -38,6 +38,7 @@ pipeline {
             }
             steps {
                 script {
+                    sh 'make build_config DEVSU_DATASOURCE_URL=${devsuDatasorceUrl} DEVSU_DB_USER=${devsuDbUser} DEVSU_DB_PASSWORD=${devsuDbPassword}'
                     dockerImage = docker.build dockerImageName
                 }
             }
