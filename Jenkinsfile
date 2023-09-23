@@ -1,11 +1,19 @@
 pipeline {
     agent any
-    environment{
-        def devsuDatasorceUrl = credentials('devsu-datasource-url')
-        def devsuDbUser = credentials('devsu-db-user')
-        def devsuDbPassword = credentials('devsu-db-password')
-    }
     stages {
+        stage('Build') {
+            environment{
+                def devsuDatasorceUrl = credentials('devsu-datasource-url')
+                def devsuDbUser = credentials('devsu-db-user')
+                def devsuDbPassword = credentials('devsu-db-password')
+            }
+            steps {
+                script {
+                    sh 'make build_config DEVSU_DATASOURCE_URL="$devsuDatasourceUrl" DEVSU_DB_USER="$devsuDbUser" DEVSU_DB_PASSWORD="$devsuDbPassword"'
+                    sh 'mvn package'
+                }
+            }
+        }
         stage('Test') {
             steps {
                 script {
@@ -40,7 +48,6 @@ pipeline {
             }
             steps {
                 script {
-                    sh 'cat src/main/resources/application.properties'
                     dockerImage = docker.build dockerImageName
                 }
             }
