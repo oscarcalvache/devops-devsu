@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh "make build_config DEVSU_DATASOURCE_URL=$devsuDatasorceUrl DEVSU_DB_USER=$devsuDbUser DEVSU_DB_PASSWORD=$devsuDbPassword"
+                sh 'make build_config DEVSU_DATASOURCE_URL=$devsuDatasorceUrl DEVSU_DB_USER=$devsuDbUser DEVSU_DB_PASSWORD=$devsuDbPassword'
                 sh 'mvn clean test'
             }
         }
@@ -38,7 +38,7 @@ pipeline {
             }
             steps {
                 script {
-                    sh "make build_config DEVSU_DATASOURCE_URL=$devsuDatasorceUrl DEVSU_DB_USER=$devsuDbUser DEVSU_DB_PASSWORD=$devsuDbPassword"
+                    sh 'make build_config DEVSU_DATASOURCE_URL=$devsuDatasorceUrl DEVSU_DB_USER=$devsuDbUser DEVSU_DB_PASSWORD=$devsuDbPassword'
                     dockerImage = docker.build dockerImageName
                 }
             }
