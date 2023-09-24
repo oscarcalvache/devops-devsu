@@ -1,2 +1,4 @@
 Dockerfile
 Jenkinsfile
+Makefile
+k8s/*
