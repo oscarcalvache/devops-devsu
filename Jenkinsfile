@@ -17,7 +17,6 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    sh 'make build_config DEVSU_DATASOURCE_URL="$devsuDatasourceUrl" DEVSU_DB_USER="$devsuDbUser" DEVSU_DB_PASSWORD="$devsuDbPassword"'
                     sh 'mvn clean test'
                 }
             }
