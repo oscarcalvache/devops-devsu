@@ -27,6 +27,31 @@ A continuación se presenta el diagrama general de la implementación del pipeli
 
 ![Diagrama Pipeline](doc/diagrama.png)
 
+### Configuración de Jenkins
+
+Las configuraciónes necesarias para el correcto funcionamiento de Jenkins se describen a continuación
+- Instalación de maven
+- Instalación y configuración de Plugin de Sonarqube
+  - En el sonar, es necesario crear el token de acceso y el webhook que se comunique con jenkins hacia la ruta http(s)://url-jenkins/sonarqube-webhook
+  - Realizar la instalación y configuracion del plugin de sonarqube ajustando la url del server sonarbube a utilizar y crear los secretos:
+    - sonar-token: token generado desde sonarqube para la autenticación
+    - sonar-webhook-secret: secreto generado en el webhook que se configura para notificar a Jenkins los resultados
+- Instalación y configuración del plugin Snyk
+  - Es necesario contar con una cuenta en la plataforma Snyk
+  - Obtener de la plataforma Snyk, el token de acceso a la plataforma
+  - Crear un secreto en jenkins con el token de Snyk
+  - Realizar la instalación del plugin de snyk, y vincularlo a la cuenta de Snyk con el token obtenido pasos atrás
+- Instalación de plugin Docker
+  - Instalar el plugin de docker para poder ejecutar los stages de Build y Push Image del Pipeline
+  - Crear un secreto con las credenciales de acceso a Docker Hub
+- Instalación de plugin Kubernetes CLI
+  - Crear un secreto tipo file en Jenkins con el archivo config de kubectl para el acceso al cluster
+  - Instalar el plugin Kubernetes CLI
+
+Al finalizar la configuración, debe obeter por lo menos estos secretos en jenkins
+
+![secretos Jenkins](doc/secrets.png)
+
 ## Stages del Pipeline
 
 ### Build Stage
