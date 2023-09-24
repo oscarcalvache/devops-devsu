@@ -1,11 +1,3 @@
-#FROM maven:3.9.4 as build
-
-#COPY . /app/
-
-#WORKDIR /app
-
-#RUN mvn package
-
 FROM openjdk:21-jdk-slim-bullseye
 
 WORKDIR /app
