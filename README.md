@@ -47,7 +47,7 @@ Las configuraciónes necesarias para el correcto funcionamiento de Jenkins se de
 - Instalación de plugin Kubernetes CLI
   - Crear un secreto tipo file en Jenkins con el archivo config de kubectl para el acceso al cluster
   - Instalar el plugin Kubernetes CLI
-
+- Creación de job tipo multibranch pipeline
 Al finalizar la configuración, debe obeter por lo menos estos secretos en jenkins
 
 ![secretos Jenkins](doc/secrets.png)

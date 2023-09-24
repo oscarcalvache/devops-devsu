@@ -23,19 +23,8 @@ pipeline {
         }
         stage('Static code Analysis & Coverage') {
             steps {
-                script {
-                    def scannerHome = tool name: 'SonarScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                    def buildTool = tool name: 'Maven', type: 'hudson.tasks.Maven$MavenInstallation'
-
-                    withSonarQubeEnv('sonar') {
-                        sh """
-                            ${scannerHome}/bin/sonar-scanner \
-                            -Dsonar.coverage.exclusions=**/devsu/devops/demo/controller/RestResponseEntityExceptionHandler.java \
-                            -Dsonar.projectKey=demo-java \
-                            -Dsonar.sources=src \
-                            -Dsonar.java.binaries=target/classes
-                        """
-                    }
+                withSonarQubeEnv('sonar') {
+                    sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
                 }
                 timeout(time: 1, unit: 'HOURS') {
                     waitForQualityGate abortPipeline: true
