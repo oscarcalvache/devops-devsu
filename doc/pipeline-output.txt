@@ -1,0 +1,823 @@
+Branch indexing
+ > git rev-parse --resolve-git-dir /var/jenkins_home/caches/git-725d9fc4b64c21176078b0484335b55c/.git # timeout=10
+Setting origin to https://github.com/oscarcalvache/devops-devsu.git
+ > git config remote.origin.url https://github.com/oscarcalvache/devops-devsu.git # timeout=10
+Fetching origin...
+Fetching upstream changes from origin
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.2'
+ > git config --get remote.origin.url # timeout=10
+using GIT_ASKPASS to set credentials
+ > git fetch --tags --force --progress -- origin +refs/heads/*:refs/remotes/origin/* # timeout=10
+Seen branch in repository origin/main
+Seen 1 remote branch
+Obtained Jenkinsfile from 1d2fe58a6d316a2c29b09c50b199d01b00f39cf3
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/devsu-demo_main
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github-credentials
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/devsu-demo_main/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/oscarcalvache/devops-devsu.git # timeout=10
+Fetching without tags
+Fetching upstream changes from https://github.com/oscarcalvache/devops-devsu.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.2'
+using GIT_ASKPASS to set credentials
+ > git fetch --no-tags --force --progress -- https://github.com/oscarcalvache/devops-devsu.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+Checking out Revision 1d2fe58a6d316a2c29b09c50b199d01b00f39cf3 (main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 1d2fe58a6d316a2c29b09c50b199d01b00f39cf3 # timeout=10
+Commit message: "Merge pull request #6 from oscarcalvache/5-mejora-ajstes-de-despligue-a-kubernetes"
+ > git rev-list --no-walk 04d977cf3e05b04aed5c25a007813f415ca6ba36 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] withCredentials
+Masking supported pattern matches of $devsuDbUser or $devsuDbPassword or $devsuDatasorceUrl
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ make build_config DEVSU_DATASOURCE_URL= DEVSU_DB_USER=**** DEVSU_DB_PASSWORD=****
+sed -i "s/{{DEVSU_DATASOURCE_URL}}//g" src/main/resources/application.properties
+sed -i "s/{{DEVSU_DB_USER}}//g" src/main/resources/application.properties
+sed -i "s/{{DEVSU_DB_PASSWORD}}//g" src/main/resources/application.properties
+[Pipeline] sh
++ mvn package
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -------------------------< devsu.devops:demo >--------------------------
+[INFO] Building demo-java 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- jacoco:0.8.10:prepare-agent (default) @ demo ---
+[INFO] argLine set to -javaagent:/var/jenkins_home/.m2/repository/org/jacoco/org.jacoco.agent/0.8.10/org.jacoco.agent-0.8.10-runtime.jar=destfile=/var/jenkins_home/workspace/devsu-demo_main/target/jacoco.exec,excludes=**/config/**:**/entity/**:**/exception/**:devsu/devops/demo/controller/RestResponseEntityExceptionHandler.java
+[INFO]
+[INFO] --- resources:3.3.0:resources (default-resources) @ demo ---
+[INFO] Copying 1 resource
+[INFO] Copying 1 resource
+[INFO]
+[INFO] --- compiler:3.10.1:compile (default-compile) @ demo ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 16 source files to /var/jenkins_home/workspace/devsu-demo_main/target/classes
+[INFO]
+[INFO] --- resources:3.3.0:testResources (default-testResources) @ demo ---
+[INFO] skip non existing resourceDirectory /var/jenkins_home/workspace/devsu-demo_main/src/test/resources
+[INFO]
+[INFO] --- compiler:3.10.1:testCompile (default-testCompile) @ demo ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 4 source files to /var/jenkins_home/workspace/devsu-demo_main/target/test-classes
+[INFO]
+[INFO] --- surefire:2.22.2:test (default-test) @ demo ---
+[INFO]
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running devsu.devops.demo.controller.UserControllerTest
+18:19:05.380 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Neither @ContextConfiguration nor @ContextHierarchy found for test class [UserControllerTest]: using SpringBootContextLoader
+18:19:05.390 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader -- Could not detect default resource locations for test class [devsu.devops.demo.controller.UserControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+18:19:05.393 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [devsu.devops.demo.controller.UserControllerTest]: UserControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:19:05.479 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Using ContextCustomizers for test class [UserControllerTest]: [ImportsContextCustomizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, TestRestTemplateContextCustomizer, DisableObservabilityContextCustomizer, PropertyMappingContextCustomizer, Customizer]
+18:19:05.708 [main] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider -- Identified candidate component class: file [/var/jenkins_home/workspace/devsu-demo_main/target/classes/devsu/devops/demo/DemoJavaApplication.class]
+18:19:05.710 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration devsu.devops.demo.DemoJavaApplication for test class devsu.devops.demo.controller.UserControllerTest
+18:19:06.028 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Using TestExecutionListeners for test class [UserControllerTest]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, EventPublishingTestExecutionListener, ResetMocksTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener]
+18:19:06.030 [main] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener -- Before test class: class [UserControllerTest], class annotated with @DirtiesContext [false] with mode [null]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.5)
+
+2023-09-24T18:19:06.687Z  INFO 17427 --- [           main] d.d.demo.controller.UserControllerTest   : Starting UserControllerTest using Java 17.0.8.1 with PID 17427 (started by jenkins in /var/jenkins_home/workspace/devsu-demo_main)
+2023-09-24T18:19:06.690Z  INFO 17427 --- [           main] d.d.demo.controller.UserControllerTest   : No active profile set, falling back to 1 default profile: "default"
+2023-09-24T18:19:07.854Z  INFO 17427 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-09-24T18:19:07.936Z  INFO 17427 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 71 ms. Found 2 JPA repository interfaces.
+2023-09-24T18:19:08.647Z  INFO 17427 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-09-24T18:19:08.748Z  INFO 17427 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-09-24T18:19:09.305Z  INFO 17427 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-09-24T18:19:09.764Z  INFO 17427 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:0e813e64-6dc6-4848-9ad1-09dc56716294 user=SA
+2023-09-24T18:19:09.766Z  INFO 17427 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-09-24T18:19:09.811Z  INFO 17427 --- [           main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2023-09-24T18:19:11.157Z  INFO 17427 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-09-24T18:19:11.174Z  INFO 17427 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-09-24T18:19:12.219Z  WARN 17427 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-09-24T18:19:12.976Z  INFO 17427 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-09-24T18:19:12.977Z  INFO 17427 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-09-24T18:19:12.981Z  INFO 17427 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2023-09-24T18:19:13.010Z  INFO 17427 --- [           main] d.d.demo.controller.UserControllerTest   : Started UserControllerTest in 6.909 seconds (process running for 9.173)
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.946 s - in devsu.devops.demo.controller.UserControllerTest
+[INFO] Running devsu.devops.demo.service.UserServiceTest
+2023-09-24T18:19:13.965Z  INFO 17427 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [devsu.devops.demo.service.UserServiceTest]: UserServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-09-24T18:19:13.971Z  INFO 17427 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration devsu.devops.demo.DemoJavaApplication for test class devsu.devops.demo.service.UserServiceTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.5)
+
+2023-09-24T18:19:13.998Z  INFO 17427 --- [           main] d.devops.demo.service.UserServiceTest    : Starting UserServiceTest using Java 17.0.8.1 with PID 17427 (started by jenkins in /var/jenkins_home/workspace/devsu-demo_main)
+2023-09-24T18:19:13.998Z  INFO 17427 --- [           main] d.devops.demo.service.UserServiceTest    : No active profile set, falling back to 1 default profile: "default"
+2023-09-24T18:19:14.230Z  INFO 17427 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-09-24T18:19:14.241Z  INFO 17427 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 2 JPA repository interfaces.
+2023-09-24T18:19:14.359Z  INFO 17427 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-09-24T18:19:14.363Z  INFO 17427 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2023-09-24T18:19:14.366Z  INFO 17427 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:cd3e1a82-b6ca-4047-ac90-a2bc788f5303 user=SA
+2023-09-24T18:19:14.366Z  INFO 17427 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2023-09-24T18:19:14.367Z  INFO 17427 --- [           main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2023-09-24T18:19:14.410Z  INFO 17427 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-09-24T18:19:14.410Z  INFO 17427 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-09-24T18:19:14.545Z  WARN 17427 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-09-24T18:19:14.700Z  INFO 17427 --- [           main] d.devops.demo.service.UserServiceTest    : Started UserServiceTest in 0.724 seconds (process running for 10.864)
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.084 s - in devsu.devops.demo.service.UserServiceTest
+[INFO] Running devsu.devops.demo.DemoJavaApplicationTests
+2023-09-24T18:19:15.073Z  INFO 17427 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [devsu.devops.demo.DemoJavaApplicationTests]: DemoJavaApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-09-24T18:19:15.078Z  INFO 17427 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration devsu.devops.demo.DemoJavaApplication for test class devsu.devops.demo.DemoJavaApplicationTests
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 s - in devsu.devops.demo.DemoJavaApplicationTests
+[INFO] Running devsu.devops.demo.repository.UserRepositoryTest
+2023-09-24T18:19:15.091Z  INFO 17427 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [devsu.devops.demo.repository.UserRepositoryTest]: UserRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-09-24T18:19:15.103Z  INFO 17427 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration devsu.devops.demo.DemoJavaApplication for test class devsu.devops.demo.repository.UserRepositoryTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.5)
+
+2023-09-24T18:19:15.129Z  INFO 17427 --- [           main] d.d.demo.repository.UserRepositoryTest   : Starting UserRepositoryTest using Java 17.0.8.1 with PID 17427 (started by jenkins in /var/jenkins_home/workspace/devsu-demo_main)
+2023-09-24T18:19:15.130Z  INFO 17427 --- [           main] d.d.demo.repository.UserRepositoryTest   : No active profile set, falling back to 1 default profile: "default"
+2023-09-24T18:19:15.204Z  INFO 17427 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-09-24T18:19:15.214Z  INFO 17427 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 2 JPA repository interfaces.
+2023-09-24T18:19:15.229Z  INFO 17427 --- [           main] beddedDataSourceBeanFactoryPostProcessor : Replacing 'dataSource' DataSource bean with embedded version
+2023-09-24T18:19:15.251Z  INFO 17427 --- [           main] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:851c511b-01f0-4ade-a4dc-d4f71274be3d;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2023-09-24T18:19:15.272Z  INFO 17427 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-09-24T18:19:15.277Z  INFO 17427 --- [           main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+Hibernate: drop table if exists users cascade
+Hibernate: create table users (id bigint generated by default as identity, dni varchar(13), name varchar(30), primary key (id))
+Hibernate: alter table if exists users add constraint UK_6aphui3g30h49muho4c91n0yl unique (dni)
+2023-09-24T18:19:15.310Z  INFO 17427 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-09-24T18:19:15.310Z  INFO 17427 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-09-24T18:19:15.381Z  INFO 17427 --- [           main] d.d.demo.repository.UserRepositoryTest   : Started UserRepositoryTest in 0.274 seconds (process running for 11.545)
+Hibernate: insert into users (id, dni, name) values (default, ?, ?)
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.38 s - in devsu.devops.demo.repository.UserRepositoryTest
+2023-09-24T18:19:15.498Z  INFO 17427 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-09-24T18:19:15.633Z  INFO 17427 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-09-24T18:19:15.636Z  INFO 17427 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-09-24T18:19:15.639Z  INFO 17427 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-09-24T18:19:15.640Z  INFO 17427 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2023-09-24T18:19:15.641Z  INFO 17427 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2023-09-24T18:19:15.643Z  INFO 17427 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[INFO]
+[INFO] Results:
+[INFO]
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[INFO]
+[INFO] --- jacoco:0.8.10:report (report) @ demo ---
+[INFO] Loading execution data file /var/jenkins_home/workspace/devsu-demo_main/target/jacoco.exec
+[INFO] Analyzed bundle 'demo-java' with 9 classes
+[INFO]
+[INFO] --- jar:3.3.0:jar (default-jar) @ demo ---
+[INFO] Building jar: /var/jenkins_home/workspace/devsu-demo_main/target/demo-0.0.1.jar
+[INFO]
+[INFO] --- spring-boot:3.0.5:repackage (repackage) @ demo ---
+[INFO] Replacing main artifact with repackaged archive
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  18.099 s
+[INFO] Finished at: 2023-09-24T18:19:17Z
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ make build_config DEVSU_DATASOURCE_URL= DEVSU_DB_USER= DEVSU_DB_PASSWORD=
+sed -i "s/{{DEVSU_DATASOURCE_URL}}//g" src/main/resources/application.properties
+sed -i "s/{{DEVSU_DB_USER}}//g" src/main/resources/application.properties
+sed -i "s/{{DEVSU_DB_PASSWORD}}//g" src/main/resources/application.properties
+[Pipeline] sh
++ mvn clean test
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -------------------------< devsu.devops:demo >--------------------------
+[INFO] Building demo-java 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- clean:3.2.0:clean (default-clean) @ demo ---
+[INFO] Deleting /var/jenkins_home/workspace/devsu-demo_main/target
+[INFO]
+[INFO] --- jacoco:0.8.10:prepare-agent (default) @ demo ---
+[INFO] argLine set to -javaagent:/var/jenkins_home/.m2/repository/org/jacoco/org.jacoco.agent/0.8.10/org.jacoco.agent-0.8.10-runtime.jar=destfile=/var/jenkins_home/workspace/devsu-demo_main/target/jacoco.exec,excludes=**/config/**:**/entity/**:**/exception/**:devsu/devops/demo/controller/RestResponseEntityExceptionHandler.java
+[INFO]
+[INFO] --- resources:3.3.0:resources (default-resources) @ demo ---
+[INFO] Copying 1 resource
+[INFO] Copying 1 resource
+[INFO]
+[INFO] --- compiler:3.10.1:compile (default-compile) @ demo ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 16 source files to /var/jenkins_home/workspace/devsu-demo_main/target/classes
+[INFO]
+[INFO] --- resources:3.3.0:testResources (default-testResources) @ demo ---
+[INFO] skip non existing resourceDirectory /var/jenkins_home/workspace/devsu-demo_main/src/test/resources
+[INFO]
+[INFO] --- compiler:3.10.1:testCompile (default-testCompile) @ demo ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 4 source files to /var/jenkins_home/workspace/devsu-demo_main/target/test-classes
+[INFO]
+[INFO] --- surefire:2.22.2:test (default-test) @ demo ---
+[INFO]
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running devsu.devops.demo.controller.UserControllerTest
+18:19:27.026 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Neither @ContextConfiguration nor @ContextHierarchy found for test class [UserControllerTest]: using SpringBootContextLoader
+18:19:27.037 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader -- Could not detect default resource locations for test class [devsu.devops.demo.controller.UserControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+18:19:27.040 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [devsu.devops.demo.controller.UserControllerTest]: UserControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:19:27.129 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Using ContextCustomizers for test class [UserControllerTest]: [ImportsContextCustomizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, TestRestTemplateContextCustomizer, DisableObservabilityContextCustomizer, PropertyMappingContextCustomizer, Customizer]
+18:19:27.392 [main] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider -- Identified candidate component class: file [/var/jenkins_home/workspace/devsu-demo_main/target/classes/devsu/devops/demo/DemoJavaApplication.class]
+18:19:27.394 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration devsu.devops.demo.DemoJavaApplication for test class devsu.devops.demo.controller.UserControllerTest
+18:19:27.721 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Using TestExecutionListeners for test class [UserControllerTest]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, EventPublishingTestExecutionListener, ResetMocksTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener]
+18:19:27.724 [main] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener -- Before test class: class [UserControllerTest], class annotated with @DirtiesContext [false] with mode [null]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.5)
+
+2023-09-24T18:19:28.375Z  INFO 17600 --- [           main] d.d.demo.controller.UserControllerTest   : Starting UserControllerTest using Java 17.0.8.1 with PID 17600 (started by jenkins in /var/jenkins_home/workspace/devsu-demo_main)
+2023-09-24T18:19:28.378Z  INFO 17600 --- [           main] d.d.demo.controller.UserControllerTest   : No active profile set, falling back to 1 default profile: "default"
+2023-09-24T18:19:30.051Z  INFO 17600 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-09-24T18:19:30.163Z  INFO 17600 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 98 ms. Found 2 JPA repository interfaces.
+2023-09-24T18:19:31.323Z  INFO 17600 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-09-24T18:19:31.455Z  INFO 17600 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-09-24T18:19:32.262Z  INFO 17600 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-09-24T18:19:33.031Z  INFO 17600 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:b93e9471-ea67-482f-a8bc-46963b60e42e user=SA
+2023-09-24T18:19:33.034Z  INFO 17600 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-09-24T18:19:33.098Z  INFO 17600 --- [           main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2023-09-24T18:19:34.747Z  INFO 17600 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-09-24T18:19:34.789Z  INFO 17600 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-09-24T18:19:36.167Z  WARN 17600 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-09-24T18:19:37.007Z  INFO 17600 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-09-24T18:19:37.007Z  INFO 17600 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-09-24T18:19:37.011Z  INFO 17600 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2023-09-24T18:19:37.040Z  INFO 17600 --- [           main] d.d.demo.controller.UserControllerTest   : Started UserControllerTest in 9.221 seconds (process running for 11.933)
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.338 s - in devsu.devops.demo.controller.UserControllerTest
+[INFO] Running devsu.devops.demo.service.UserServiceTest
+2023-09-24T18:19:37.926Z  INFO 17600 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [devsu.devops.demo.service.UserServiceTest]: UserServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-09-24T18:19:37.937Z  INFO 17600 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration devsu.devops.demo.DemoJavaApplication for test class devsu.devops.demo.service.UserServiceTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.5)
+
+2023-09-24T18:19:37.986Z  INFO 17600 --- [           main] d.devops.demo.service.UserServiceTest    : Starting UserServiceTest using Java 17.0.8.1 with PID 17600 (started by jenkins in /var/jenkins_home/workspace/devsu-demo_main)
+2023-09-24T18:19:37.987Z  INFO 17600 --- [           main] d.devops.demo.service.UserServiceTest    : No active profile set, falling back to 1 default profile: "default"
+2023-09-24T18:19:38.289Z  INFO 17600 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-09-24T18:19:38.306Z  INFO 17600 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 16 ms. Found 2 JPA repository interfaces.
+2023-09-24T18:19:38.514Z  INFO 17600 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-09-24T18:19:38.523Z  INFO 17600 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2023-09-24T18:19:38.530Z  INFO 17600 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:9028c40d-0b1c-44d9-911a-36b07aaf1a67 user=SA
+2023-09-24T18:19:38.530Z  INFO 17600 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2023-09-24T18:19:38.531Z  INFO 17600 --- [           main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2023-09-24T18:19:38.611Z  INFO 17600 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-09-24T18:19:38.612Z  INFO 17600 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-09-24T18:19:38.783Z  WARN 17600 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-09-24T18:19:38.989Z  INFO 17600 --- [           main] d.devops.demo.service.UserServiceTest    : Started UserServiceTest in 1.046 seconds (process running for 13.883)
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.484 s - in devsu.devops.demo.service.UserServiceTest
+[INFO] Running devsu.devops.demo.DemoJavaApplicationTests
+2023-09-24T18:19:39.431Z  INFO 17600 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [devsu.devops.demo.DemoJavaApplicationTests]: DemoJavaApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-09-24T18:19:39.438Z  INFO 17600 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration devsu.devops.demo.DemoJavaApplication for test class devsu.devops.demo.DemoJavaApplicationTests
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 s - in devsu.devops.demo.DemoJavaApplicationTests
+[INFO] Running devsu.devops.demo.repository.UserRepositoryTest
+2023-09-24T18:19:39.456Z  INFO 17600 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [devsu.devops.demo.repository.UserRepositoryTest]: UserRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-09-24T18:19:39.474Z  INFO 17600 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration devsu.devops.demo.DemoJavaApplication for test class devsu.devops.demo.repository.UserRepositoryTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.5)
+
+2023-09-24T18:19:39.501Z  INFO 17600 --- [           main] d.d.demo.repository.UserRepositoryTest   : Starting UserRepositoryTest using Java 17.0.8.1 with PID 17600 (started by jenkins in /var/jenkins_home/workspace/devsu-demo_main)
+2023-09-24T18:19:39.502Z  INFO 17600 --- [           main] d.d.demo.repository.UserRepositoryTest   : No active profile set, falling back to 1 default profile: "default"
+2023-09-24T18:19:39.577Z  INFO 17600 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-09-24T18:19:39.589Z  INFO 17600 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 2 JPA repository interfaces.
+2023-09-24T18:19:39.610Z  INFO 17600 --- [           main] beddedDataSourceBeanFactoryPostProcessor : Replacing 'dataSource' DataSource bean with embedded version
+2023-09-24T18:19:39.639Z  INFO 17600 --- [           main] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:62152b16-7ca7-46ac-94b0-dca390c86622;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2023-09-24T18:19:39.663Z  INFO 17600 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-09-24T18:19:39.669Z  INFO 17600 --- [           main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+Hibernate: drop table if exists users cascade
+Hibernate: create table users (id bigint generated by default as identity, dni varchar(13), name varchar(30), primary key (id))
+Hibernate: alter table if exists users add constraint UK_6aphui3g30h49muho4c91n0yl unique (dni)
+2023-09-24T18:19:39.710Z  INFO 17600 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-09-24T18:19:39.710Z  INFO 17600 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-09-24T18:19:39.794Z  INFO 17600 --- [           main] d.d.demo.repository.UserRepositoryTest   : Started UserRepositoryTest in 0.316 seconds (process running for 14.687)
+Hibernate: insert into users (id, dni, name) values (default, ?, ?)
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.462 s - in devsu.devops.demo.repository.UserRepositoryTest
+2023-09-24T18:19:39.937Z  INFO 17600 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-09-24T18:19:39.941Z  INFO 17600 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-09-24T18:19:39.948Z  INFO 17600 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-09-24T18:19:39.952Z  INFO 17600 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-09-24T18:19:39.953Z  INFO 17600 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2023-09-24T18:19:39.956Z  INFO 17600 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2023-09-24T18:19:39.958Z  INFO 17600 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[INFO]
+[INFO] Results:
+[INFO]
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  20.738 s
+[INFO] Finished at: 2023-09-24T18:19:40Z
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Static code Analysis & Coverage)
+[Pipeline] withSonarQubeEnv
+Injecting SonarQube environment variables using the configuration: sonar
+[Pipeline] {
+[Pipeline] sh
++ mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -------------------------< devsu.devops:demo >--------------------------
+[INFO] Building demo-java 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- jacoco:0.8.10:prepare-agent (default) @ demo ---
+[INFO] argLine set to -javaagent:/var/jenkins_home/.m2/repository/org/jacoco/org.jacoco.agent/0.8.10/org.jacoco.agent-0.8.10-runtime.jar=destfile=/var/jenkins_home/workspace/devsu-demo_main/target/jacoco.exec,excludes=**/config/**:**/entity/**:**/exception/**:devsu/devops/demo/controller/RestResponseEntityExceptionHandler.java
+[INFO]
+[INFO] --- resources:3.3.0:resources (default-resources) @ demo ---
+[INFO] Copying 1 resource
+[INFO] Copying 1 resource
+[INFO]
+[INFO] --- compiler:3.10.1:compile (default-compile) @ demo ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO]
+[INFO] --- resources:3.3.0:testResources (default-testResources) @ demo ---
+[INFO] skip non existing resourceDirectory /var/jenkins_home/workspace/devsu-demo_main/src/test/resources
+[INFO]
+[INFO] --- compiler:3.10.1:testCompile (default-testCompile) @ demo ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO]
+[INFO] --- surefire:2.22.2:test (default-test) @ demo ---
+[INFO]
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running devsu.devops.demo.controller.UserControllerTest
+18:19:47.040 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Neither @ContextConfiguration nor @ContextHierarchy found for test class [UserControllerTest]: using SpringBootContextLoader
+18:19:47.054 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader -- Could not detect default resource locations for test class [devsu.devops.demo.controller.UserControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+18:19:47.056 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [devsu.devops.demo.controller.UserControllerTest]: UserControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:19:47.162 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Using ContextCustomizers for test class [UserControllerTest]: [ImportsContextCustomizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, TestRestTemplateContextCustomizer, DisableObservabilityContextCustomizer, PropertyMappingContextCustomizer, Customizer]
+18:19:47.397 [main] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider -- Identified candidate component class: file [/var/jenkins_home/workspace/devsu-demo_main/target/classes/devsu/devops/demo/DemoJavaApplication.class]
+18:19:47.398 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration devsu.devops.demo.DemoJavaApplication for test class devsu.devops.demo.controller.UserControllerTest
+18:19:47.771 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Using TestExecutionListeners for test class [UserControllerTest]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, EventPublishingTestExecutionListener, ResetMocksTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener]
+18:19:47.774 [main] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener -- Before test class: class [UserControllerTest], class annotated with @DirtiesContext [false] with mode [null]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.5)
+
+2023-09-24T18:19:48.635Z  INFO 17750 --- [           main] d.d.demo.controller.UserControllerTest   : Starting UserControllerTest using Java 17.0.8.1 with PID 17750 (started by jenkins in /var/jenkins_home/workspace/devsu-demo_main)
+2023-09-24T18:19:48.639Z  INFO 17750 --- [           main] d.d.demo.controller.UserControllerTest   : No active profile set, falling back to 1 default profile: "default"
+2023-09-24T18:19:51.189Z  INFO 17750 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-09-24T18:19:51.364Z  INFO 17750 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 156 ms. Found 2 JPA repository interfaces.
+2023-09-24T18:19:53.034Z  INFO 17750 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-09-24T18:19:53.362Z  INFO 17750 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-09-24T18:19:54.450Z  INFO 17750 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-09-24T18:19:55.261Z  INFO 17750 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:6a8ecdf4-0275-437c-88a3-6669b52ee122 user=SA
+2023-09-24T18:19:55.265Z  INFO 17750 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-09-24T18:19:55.329Z  INFO 17750 --- [           main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2023-09-24T18:19:57.577Z  INFO 17750 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-09-24T18:19:57.607Z  INFO 17750 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-09-24T18:19:59.220Z  WARN 17750 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-09-24T18:20:00.013Z  INFO 17750 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-09-24T18:20:00.014Z  INFO 17750 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-09-24T18:20:00.018Z  INFO 17750 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2023-09-24T18:20:00.051Z  INFO 17750 --- [           main] d.d.demo.controller.UserControllerTest   : Started UserControllerTest in 12.173 seconds (process running for 15.089)
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.567 s - in devsu.devops.demo.controller.UserControllerTest
+[INFO] Running devsu.devops.demo.service.UserServiceTest
+2023-09-24T18:20:01.113Z  INFO 17750 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [devsu.devops.demo.service.UserServiceTest]: UserServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-09-24T18:20:01.125Z  INFO 17750 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration devsu.devops.demo.DemoJavaApplication for test class devsu.devops.demo.service.UserServiceTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.5)
+
+2023-09-24T18:20:01.155Z  INFO 17750 --- [           main] d.devops.demo.service.UserServiceTest    : Starting UserServiceTest using Java 17.0.8.1 with PID 17750 (started by jenkins in /var/jenkins_home/workspace/devsu-demo_main)
+2023-09-24T18:20:01.155Z  INFO 17750 --- [           main] d.devops.demo.service.UserServiceTest    : No active profile set, falling back to 1 default profile: "default"
+2023-09-24T18:20:01.402Z  INFO 17750 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-09-24T18:20:01.418Z  INFO 17750 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 15 ms. Found 2 JPA repository interfaces.
+2023-09-24T18:20:01.541Z  INFO 17750 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-09-24T18:20:01.547Z  INFO 17750 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2023-09-24T18:20:01.553Z  INFO 17750 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:f21ee406-45fb-406f-aaa5-0a4f2f2229b5 user=SA
+2023-09-24T18:20:01.553Z  INFO 17750 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2023-09-24T18:20:01.554Z  INFO 17750 --- [           main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2023-09-24T18:20:01.602Z  INFO 17750 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-09-24T18:20:01.603Z  INFO 17750 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-09-24T18:20:01.765Z  WARN 17750 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-09-24T18:20:01.969Z  INFO 17750 --- [           main] d.devops.demo.service.UserServiceTest    : Started UserServiceTest in 0.84 seconds (process running for 17.008)
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.306 s - in devsu.devops.demo.service.UserServiceTest
+[INFO] Running devsu.devops.demo.DemoJavaApplicationTests
+2023-09-24T18:20:02.441Z  INFO 17750 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [devsu.devops.demo.DemoJavaApplicationTests]: DemoJavaApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-09-24T18:20:02.451Z  INFO 17750 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration devsu.devops.demo.DemoJavaApplication for test class devsu.devops.demo.DemoJavaApplicationTests
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 s - in devsu.devops.demo.DemoJavaApplicationTests
+[INFO] Running devsu.devops.demo.repository.UserRepositoryTest
+2023-09-24T18:20:02.479Z  INFO 17750 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [devsu.devops.demo.repository.UserRepositoryTest]: UserRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-09-24T18:20:02.497Z  INFO 17750 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration devsu.devops.demo.DemoJavaApplication for test class devsu.devops.demo.repository.UserRepositoryTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.5)
+
+2023-09-24T18:20:02.524Z  INFO 17750 --- [           main] d.d.demo.repository.UserRepositoryTest   : Starting UserRepositoryTest using Java 17.0.8.1 with PID 17750 (started by jenkins in /var/jenkins_home/workspace/devsu-demo_main)
+2023-09-24T18:20:02.524Z  INFO 17750 --- [           main] d.d.demo.repository.UserRepositoryTest   : No active profile set, falling back to 1 default profile: "default"
+2023-09-24T18:20:02.602Z  INFO 17750 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-09-24T18:20:02.613Z  INFO 17750 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 2 JPA repository interfaces.
+2023-09-24T18:20:02.629Z  INFO 17750 --- [           main] beddedDataSourceBeanFactoryPostProcessor : Replacing 'dataSource' DataSource bean with embedded version
+2023-09-24T18:20:02.652Z  INFO 17750 --- [           main] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:7121bad9-b0f5-415a-9518-3846e6493f68;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2023-09-24T18:20:02.673Z  INFO 17750 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-09-24T18:20:02.678Z  INFO 17750 --- [           main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+Hibernate: drop table if exists users cascade
+Hibernate: create table users (id bigint generated by default as identity, dni varchar(13), name varchar(30), primary key (id))
+Hibernate: alter table if exists users add constraint UK_6aphui3g30h49muho4c91n0yl unique (dni)
+2023-09-24T18:20:02.711Z  INFO 17750 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-09-24T18:20:02.712Z  INFO 17750 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-09-24T18:20:02.784Z  INFO 17750 --- [           main] d.d.demo.repository.UserRepositoryTest   : Started UserRepositoryTest in 0.283 seconds (process running for 17.823)
+Hibernate: insert into users (id, dni, name) values (default, ?, ?)
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.395 s - in devsu.devops.demo.repository.UserRepositoryTest
+2023-09-24T18:20:02.884Z  INFO 17750 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-09-24T18:20:03.061Z  INFO 17750 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-09-24T18:20:03.064Z  INFO 17750 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-09-24T18:20:03.067Z  INFO 17750 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-09-24T18:20:03.067Z  INFO 17750 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2023-09-24T18:20:03.068Z  INFO 17750 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2023-09-24T18:20:03.069Z  INFO 17750 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+[INFO]
+[INFO] Results:
+[INFO]
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[INFO]
+[INFO] --- jacoco:0.8.10:report (report) @ demo ---
+[INFO] Loading execution data file /var/jenkins_home/workspace/devsu-demo_main/target/jacoco.exec
+[INFO] Analyzed bundle 'demo-java' with 9 classes
+[INFO]
+[INFO] --- jar:3.3.0:jar (default-jar) @ demo ---
+[INFO] Building jar: /var/jenkins_home/workspace/devsu-demo_main/target/demo-0.0.1.jar
+[INFO]
+[INFO] --- spring-boot:3.0.5:repackage (repackage) @ demo ---
+[INFO] Replacing main artifact with repackaged archive
+[INFO]
+[INFO] -------------------------< devsu.devops:demo >--------------------------
+[INFO] Building demo-java 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- sonar:3.7.0.1746:sonar (default-cli) @ demo ---
+[INFO] User cache: /var/jenkins_home/.sonar/cache
+[INFO] SonarQube version: 10.2.1.78527
+[INFO] Default locale: "en", source code encoding: "UTF-8"
+[INFO] Load global settings
+[INFO] Load global settings (done) | time=141ms
+[INFO] Server id: 147B411E-AYq6HnR5hEzWq0A5zQyL
+[INFO] User cache: /var/jenkins_home/.sonar/cache
+[INFO] Load/download plugins
+[INFO] Load plugins index
+[INFO] Load plugins index (done) | time=66ms
+[INFO] Load/download plugins (done) | time=127ms
+[INFO] Process project properties
+[INFO] Process project properties (done) | time=13ms
+[INFO] Execute project builders
+[INFO] Execute project builders (done) | time=2ms
+[INFO] Project key: devsu.devops:demo
+[INFO] Base dir: /var/jenkins_home/workspace/devsu-demo_main
+[INFO] Working dir: /var/jenkins_home/workspace/devsu-demo_main/target/sonar
+[INFO] Load project settings for component key: 'devsu.devops:demo'
+[INFO] Load project settings for component key: 'devsu.devops:demo' (done) | time=18ms
+[INFO] Auto-configuring with CI 'Jenkins'
+[INFO] Load quality profiles
+[INFO] Load quality profiles (done) | time=61ms
+[INFO] Load active rules
+[INFO] Load active rules (done) | time=2459ms
+[INFO] Load analysis cache
+[INFO] Load analysis cache (1.1 kB) | time=18ms
+[WARNING] The property 'sonar.login' is deprecated and will be removed in the future. Please use the 'sonar.token' property instead when passing a token.
+[INFO] Load project repositories
+[INFO] Load project repositories (done) | time=19ms
+[INFO] Indexing files...
+[INFO] Project configuration:
+[INFO] 21 files indexed
+[INFO] 0 files ignored because of scm ignore settings
+[INFO] Quality profile for java: Sonar way
+[INFO] Quality profile for xml: Sonar way
+[INFO] ------------- Run sensors on module demo-java
+[INFO] Load metrics repository
+[INFO] Load metrics repository (done) | time=39ms
+[INFO] Sensor JavaSensor [java]
+[INFO] Configured Java source version (sonar.java.source): 17, preview features enabled (sonar.java.enablePreview): false
+[INFO] Server-side caching is enabled. The Java analyzer will not try to leverage data from a previous analysis.
+[INFO] Using ECJ batch to parse 16 Main java source files with batch size 150 KB.
+[INFO] Starting batch processing.
+[INFO] The Java analyzer cannot skip unchanged files in this context. A full analysis is performed for all files.
+[INFO] 100% analyzed
+[INFO] Batch processing: Done.
+[INFO] Did not optimize analysis for any files, performed a full analysis for all 16 files.
+[WARNING] Use of preview features have been detected during analysis. Enable DEBUG mode to see them.
+[INFO] Using ECJ batch to parse 4 Test java source files with batch size 150 KB.
+[INFO] Starting batch processing.
+[INFO] 100% analyzed
+[INFO] Batch processing: Done.
+[INFO] Did not optimize analysis for any files, performed a full analysis for all 4 files.
+[INFO] No "Generated" source files to scan.
+[INFO] Sensor JavaSensor [java] (done) | time=2693ms
+[INFO] Sensor JaCoCo XML Report Importer [jacoco]
+[INFO] 'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
+[INFO] Importing 1 report(s). Turn your logs in debug mode in order to see the exhaustive list.
+[INFO] Sensor JaCoCo XML Report Importer [jacoco] (done) | time=47ms
+[INFO] Sensor CSS Rules [javascript]
+[INFO] No CSS, PHP, HTML or VueJS files are found in the project. CSS analysis is skipped.
+[INFO] Sensor CSS Rules [javascript] (done) | time=1ms
+[INFO] Sensor C# Project Type Information [csharp]
+[INFO] Sensor C# Project Type Information [csharp] (done) | time=1ms
+[INFO] Sensor C# Analysis Log [csharp]
+[INFO] Sensor C# Analysis Log [csharp] (done) | time=17ms
+[INFO] Sensor C# Properties [csharp]
+[INFO] Sensor C# Properties [csharp] (done) | time=0ms
+[INFO] Sensor SurefireSensor [java]
+[INFO] parsing [/var/jenkins_home/workspace/devsu-demo_main/target/surefire-reports]
+[INFO] Sensor SurefireSensor [java] (done) | time=134ms
+[INFO] Sensor HTML [web]
+[INFO] Sensor HTML [web] (done) | time=5ms
+[INFO] Sensor XML Sensor [xml]
+[INFO] 1 source file to be analyzed
+[INFO] 1/1 source file has been analyzed
+[INFO] Sensor XML Sensor [xml] (done) | time=288ms
+[INFO] Sensor TextAndSecretsSensor [text]
+[INFO] 21 source files to be analyzed
+[INFO] 21/21 source files have been analyzed
+[INFO] Sensor TextAndSecretsSensor [text] (done) | time=535ms
+[INFO] Sensor VB.NET Project Type Information [vbnet]
+[INFO] Sensor VB.NET Project Type Information [vbnet] (done) | time=1ms
+[INFO] Sensor VB.NET Analysis Log [vbnet]
+[INFO] Sensor VB.NET Analysis Log [vbnet] (done) | time=17ms
+[INFO] Sensor VB.NET Properties [vbnet]
+[INFO] Sensor VB.NET Properties [vbnet] (done) | time=0ms
+[INFO] Sensor IaC Docker Sensor [iac]
+[INFO] 0 source files to be analyzed
+[INFO] 0/0 source files have been analyzed
+[INFO] Sensor IaC Docker Sensor [iac] (done) | time=98ms
+[INFO] ------------- Run sensors on project
+[INFO] Sensor Analysis Warnings import [csharp]
+[INFO] Sensor Analysis Warnings import [csharp] (done) | time=1ms
+[INFO] Sensor Zero Coverage Sensor
+[INFO] Sensor Zero Coverage Sensor (done) | time=4ms
+[INFO] Sensor Java CPD Block Indexer
+[INFO] Sensor Java CPD Block Indexer (done) | time=38ms
+[INFO] CPD Executor 9 files had no CPD blocks
+[INFO] CPD Executor Calculating CPD for 7 files
+[INFO] CPD Executor CPD calculation finished (done) | time=12ms
+[INFO] Analysis report generated in 97ms, dir size=184.9 kB
+[INFO] Analysis report compressed in 108ms, zip size=57.5 kB
+[INFO] Analysis report uploaded in 48ms
+[INFO] ANALYSIS SUCCESSFUL, you can find the results at: http://sonarqube:9000/dashboard?id=devsu.devops%3Ademo
+[INFO] Note that you will be able to access the updated dashboard once the server has processed the submitted analysis report
+[INFO] More about the report processing at http://sonarqube:9000/api/ce/task?id=AYrIa7VanLH1PnhzxO4H
+[INFO] Analysis total time: 10.295 s
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  33.981 s
+[INFO] Finished at: 2023-09-24T18:20:16Z
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // withSonarQubeEnv
+[Pipeline] timeout
+Timeout set to expire in 1 hr 0 min
+[Pipeline] {
+[Pipeline] waitForQualityGate
+Checking status of SonarQube task 'AYrIa7VanLH1PnhzxO4H' on server 'sonar'
+SonarQube task 'AYrIa7VanLH1PnhzxO4H' status is 'IN_PROGRESS'
+The incoming webhook matched the configured webhook secret
+SonarQube task 'AYrIa7VanLH1PnhzxO4H' status is 'SUCCESS'
+SonarQube task 'AYrIa7VanLH1PnhzxO4H' completed. Quality gate is 'OK'
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Vulnerability Scan)
+[Pipeline] snykSecurity
+Installing Snyk (latest)...
+Testing project...
+> /var/jenkins_home/tools/io.snyk.jenkins.tools.SnykInstallation/snyk/snyk-linux test --json --severity-threshold=critical
+Generating report...
+> /var/jenkins_home/tools/io.snyk.jenkins.tools.SnykInstallation/snyk/snyk-to-html-linux -i /var/jenkins_home/workspace/devsu-demo_main/2023-09-24T18-20-33-996452110Z_snyk_report.json
+Archiving artifacts
+Monitoring project...
+> /var/jenkins_home/tools/io.snyk.jenkins.tools.SnykInstallation/snyk/snyk-linux monitor --severity-threshold=critical
+
+Monitoring /var/jenkins_home/workspace/devsu-demo_main (devsu.devops:demo)...
+
+Explore this snapshot at https://app.snyk.io/org/oscarcalvache/project/d9b2ac32-2193-4241-a111-87693d9e3564/history/f15e093b-0a53-4baa-9b43-03074d715967
+
+Notifications about newly disclosed issues related to these dependencies will be emailed to you.
+
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build Image)
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ docker build -t oscarcalvache/devsu-demo .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load .dockerignore
+#1 transferring context: 78B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 265B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/openjdk:21-jdk-slim-bullseye
+#3 DONE 1.0s
+
+#4 [1/5] FROM docker.io/library/openjdk:21-jdk-slim-bullseye@sha256:2abc20368f7f263a8d54dd847d750bf5eb1a82d0e4c39bf2406e3fc714122019
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 55.11MB 0.4s done
+#5 DONE 0.5s
+
+#6 [2/5] WORKDIR /app
+#6 CACHED
+
+#7 [3/5] COPY target/*.jar ./app.jar
+#7 DONE 0.2s
+
+#8 [4/5] RUN useradd -s /bin/bash java
+#8 DONE 0.2s
+
+#9 [5/5] RUN chown -R java /app/
+#9 DONE 0.4s
+
+#10 exporting to image
+#10 exporting layers
+#10 exporting layers 0.3s done
+#10 writing image sha256:3656c69194e87eb02f57cdcf809ee6acb6472912c9313a87d9f3a72b8f93bace done
+#10 naming to docker.io/oscarcalvache/devsu-demo done
+#10 DONE 0.3s
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withDockerRegistry
+$ docker login -u osk41calvache@gmail.com -p ******** https://index.docker.io/v1/
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+WARNING! Your password will be stored unencrypted in /var/jenkins_home/workspace/devsu-demo_main@tmp/b8688b97-f943-479b-aac1-ae7435e7ff8d/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ docker tag oscarcalvache/devsu-demo oscarcalvache/devsu-demo:3
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ docker push oscarcalvache/devsu-demo:3
+The push refers to repository [docker.io/oscarcalvache/devsu-demo]
+d70112b93f74: Preparing
+eddd85829bd0: Preparing
+ff3efcd8c0b0: Preparing
+8670bb8f9d16: Preparing
+af5a23080cf1: Preparing
+dc116333edfa: Preparing
+10764c37bcbc: Preparing
+10764c37bcbc: Waiting
+dc116333edfa: Waiting
+8670bb8f9d16: Layer already exists
+af5a23080cf1: Layer already exists
+dc116333edfa: Layer already exists
+10764c37bcbc: Layer already exists
+eddd85829bd0: Pushed
+ff3efcd8c0b0: Pushed
+d70112b93f74: Pushed
+3: digest: sha256:26007e23ae3b47cf9033ad1d6b0494bcd355dbc7f335bb0b0cff996ea9d61f93 size: 1791
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withDockerRegistry
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ make config_deploy BUILD_NUMBER=3
+sed -i "s/{{BUILD_NUMBER}}/3/g" k8s/deployment.yml
+[Pipeline] withKubeConfig
+[Pipeline] {
+[Pipeline] sh
++ kubectl apply -f k8s/
+deployment.apps/devsu-demo-deploy configured
+horizontalpodautoscaler.autoscaling/devsu-demo-hpa unchanged
+ingress.networking.k8s.io/devsu-ingress unchanged
+service/devsu-demo unchanged
+[Pipeline] }
+[kubernetes-cli] kubectl configuration cleaned up
+[Pipeline] // withKubeConfig
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+
